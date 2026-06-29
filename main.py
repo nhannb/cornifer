@@ -8,11 +8,38 @@ and hands it to the agent loop.
 
 import argparse
 
+from client import chat
+
+SYSTEM_PROMPT = (
+    "You are a helpful agent working toward a goal. "
+    "Think step by step. When the goal is fully complete, "
+    "end your final reply with the word DONE on its own line."
+)
+DONE_SENTINEL = "DONE"
+
 
 def run(goal: str, max_iterations: int = 10) -> None:
     """Run the agent loop for the given goal."""
-    # Milestone 1 implementation lives here.
-    pass
+    messages = [
+        {"role": "system", "content": SYSTEM_PROMPT},
+        {"role": "user",   "content": goal},
+    ]
+
+    for iteration in range(1, max_iterations + 1):
+        print(f"\n--- Iteration {iteration} ---")
+        reply, usage = chat(messages)
+        print(reply)
+
+        if DONE_SENTINEL in reply:
+            print("\nAgent signalled completion.")
+            return
+        messages.append({"role": "assistant", "content": reply})
+
+    # Reached only when the cap is hit without a DONE signal.
+    print(
+        f"\nReached max iterations ({max_iterations}) without completion. "
+        "Increase --max-iterations or refine the goal."
+    )
 
 
 def main() -> None:

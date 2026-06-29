@@ -1,5 +1,6 @@
-# Virtual environment
-.venv/
+# Environment
+.env
+*.env
 
 # Python
 __pycache__/
@@ -7,6 +8,15 @@ __pycache__/
 *.egg-info/
 dist/
 build/
+.venv/
+venv/
 
-# Environment variables
-.env
+# Tools
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Editor
+.idea/
+.vscode/
+*.swp

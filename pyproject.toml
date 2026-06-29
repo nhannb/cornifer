@@ -12,7 +12,13 @@ description = "An AI agent built from scratch, one capability at a time."
 requires-python = ">=3.14"
 dependencies = [
     "openai>=1.0",
+    "python-dotenv>=1.0",
 ]
 
 [project.scripts]
 cornifer = "main:main"
+
+[dependency-groups]
+dev = [
+    "pytest>=9.1.1",
+]
